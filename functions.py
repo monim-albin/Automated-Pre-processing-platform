@@ -88,8 +88,6 @@ class Preprocessing:
         zen = TextBlob(text)
         # words = zen.words()
         words = zen.split()
-        print("///////////////////////////////////")
-
         return " ".join([w for w in words if not stp.is_stop(w) and not w in self.stop_word_comp and len(w) >= 2])
 
     # Read all emojis from files
@@ -237,24 +235,23 @@ class Preprocessing:
     def apply_filters_selected(self, bool_selected_filters):
         if bool_selected_filters[0]: self.df[self.col_selected] = self.df[self.col_selected].apply(
             lambda x: self.remove_row_with_English())
-        for i, col in self.df.iterrows():
-            if bool_selected_filters[1]:
-                self.df.loc[i, self.col_selected] = self.remove_urls(col[self.col_selected])
-            if bool_selected_filters[2]:
-                self.df.loc[i, self.col_selected] = self.remove_emoji(col[self.col_selected])
-            if bool_selected_filters[3]:
-                self.df.loc[i, self.col_selected] = self.translate_emoji(col[self.col_selected])
-            if bool_selected_filters[4]:
-                self.df.loc[i, self.col_selected] = self.remove_punc(col[self.col_selected])
-            if bool_selected_filters[5]:
-                self.df.loc[i, self.col_selected] = self.remove_whitespace(col[self.col_selected])
-            if bool_selected_filters[6]:
-                self.df.loc[i, self.col_selected] = self.remove_stop_words(col[self.col_selected])
-            if bool_selected_filters[7]:
-                self.df.loc[i, self.col_selected] = self.remove_number(col[self.col_selected])
-            if bool_selected_filters[8]:
-                self.df.loc[i, self.col_selected] = self.normalizeArabic(col[self.col_selected])
-            if bool_selected_filters[9]:
-                self.df.loc[i, self.col_selected] = self.stem(col[self.col_selected])
+        if bool_selected_filters[1]: self.df[self.col_selected] = self.df[self.col_selected].apply(
+            lambda x: self.remove_urls(x))
+        if bool_selected_filters[2]: self.df[self.col_selected] = self.df[self.col_selected].apply(
+            lambda x: self.remove_emoji(x))
+        if bool_selected_filters[3]: self.df[self.col_selected] = self.df[self.col_selected].apply(
+            lambda x: self.translate_emoji(x))
+        if bool_selected_filters[4]: self.df[self.col_selected] = self.df[self.col_selected].apply(
+            lambda x: self.remove_punc(x))
+        if bool_selected_filters[5]: self.df[self.col_selected] = self.df[self.col_selected].apply(
+            lambda x: self.remove_whitespace(x))
+        if bool_selected_filters[6]: self.df[self.col_selected] = self.df[self.col_selected].apply(
+            lambda x: self.remove_stop_words(x))
+        if bool_selected_filters[7]: self.df[self.col_selected] = self.df[self.col_selected].apply(
+            lambda x: self.remove_number(x))
+        if bool_selected_filters[8]: self.df[self.col_selected] = self.df[self.col_selected].apply(
+            lambda x: self.normalizeArabic(x))
+        if bool_selected_filters[9]: self.df[self.col_selected] = self.df[self.col_selected].apply(
+            lambda x: self.stem(x))
 
         # df = df.sort_values(by='word_count', ascending=[0])
