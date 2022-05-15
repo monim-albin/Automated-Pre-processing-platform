@@ -1,8 +1,8 @@
 import streamlit as st
 import functions as alt_fun
 import pandas as pd
-# import nltk
-# nltk.download('punkt')
+import nltk
+nltk.download('punkt')
 import copy
 
 
