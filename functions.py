@@ -6,6 +6,8 @@ import re
 import pyarabic.araby as araby
 import pandas as pd
 import streamlit as st
+from io import StringIO
+
 
 class Preprocessing:
     def __init__(self):
@@ -20,7 +22,22 @@ class Preprocessing:
 
     # @st.cache
     def read_file(self, file):
-        self.df = pd.read_csv(file, sep="\t", encoding='UTF-16')
+        print(file)
+        sep = "\t" if file.type == "text/plain" else ";"
+        bytes_data = file.read()
+
+        try:
+            encoding = 'UTF-16'
+            s = str(bytes_data, encoding)
+
+        except:
+            encoding = 'UTF-8'
+            s = str(bytes_data, encoding)
+
+        data = StringIO(s)
+        s = pd.read_csv(data, delimiter=sep)
+        self.df = s
+
     # <--------- Adding new features ------------>
     # return string columns
     def col_names_string_type(self):
@@ -40,7 +57,7 @@ class Preprocessing:
         return emoji.emoji_count(sentence)
 
     # Add all new selected features
-#     @st.cache
+    @st.cache
     def add_features_selected (self, bool_selected_additional_features):
         if bool_selected_additional_features[0] : self.df['word_count'] = self.df[self.col_selected].apply(lambda x: len(str(x).split(" ")))
         if bool_selected_additional_features[1] : self.df['char_count'] = self.df[self.col_selected].str.len()  ## this also includes spaces
@@ -231,7 +248,7 @@ class Preprocessing:
         return text
 
     # Apply the selected filters
-#     @st.cache
+    @st.cache
     def apply_filters_selected(self, bool_selected_filters):
         if bool_selected_filters[0]: self.df[self.col_selected] = self.df[self.col_selected].apply(
             lambda x: self.remove_row_with_English())
