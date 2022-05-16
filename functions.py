@@ -20,7 +20,7 @@ class Preprocessing:
         self.ArListem = ArabicLightStemmer()
         self.emojis_ar = {}
 
-    # @st.cache
+    @st.cache
     def read_file(self, file):
         print(file)
         sep = "\t" if file.type == "text/plain" else ";"
@@ -57,7 +57,7 @@ class Preprocessing:
         return emoji.emoji_count(sentence)
 
     # Add all new selected features
-    @st.cache
+#     @st.cache
     def add_features_selected (self, bool_selected_additional_features):
         if bool_selected_additional_features[0] : self.df['word_count'] = self.df[self.col_selected].apply(lambda x: len(str(x).split(" ")))
         if bool_selected_additional_features[1] : self.df['char_count'] = self.df[self.col_selected].str.len()  ## this also includes spaces
@@ -248,7 +248,7 @@ class Preprocessing:
         return text
 
     # Apply the selected filters
-    @st.cache
+#     @st.cache
     def apply_filters_selected(self, bool_selected_filters):
         if bool_selected_filters[0]: self.df[self.col_selected] = self.df[self.col_selected].apply(
             lambda x: self.remove_row_with_English())
