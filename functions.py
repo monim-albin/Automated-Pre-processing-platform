@@ -20,7 +20,7 @@ class Preprocessing:
         self.ArListem = ArabicLightStemmer()
         self.emojis_ar = {}
 
-    @st.cache
+#     @st.cache
     def read_file(self, file):
         print(file)
         sep = "\t" if file.type == "text/plain" else ";"
