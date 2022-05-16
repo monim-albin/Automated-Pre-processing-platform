@@ -22,7 +22,6 @@ with header_title:
             " their shoulder, I have decided to build an automated "
             "tool/platform to pre-process arabic records.")
     file = st.file_uploader("Upload your CSV/TXT file here:", type=["csv","txt"])
-
 if not file is None:
     with st.form(key="form1"):
         with header_title:
