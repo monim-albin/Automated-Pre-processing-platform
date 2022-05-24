@@ -1,14 +1,13 @@
 import streamlit as st
 import functions as alt_fun
-import pandas as pd
 import nltk
 nltk.download('punkt')
 import copy
 
-
-
 prepro = alt_fun.Preprocessing()
 prepro.emoji_loca = "./emojis.csv"
+prepro.dataset_try = "./hotel-reviews.txt"
+prepro.emoji_list()
 
 # <!------------------------------------------->
 header_title = st.container()
@@ -21,6 +20,11 @@ with header_title:
             " linguistic complexity. To leverage the load carried on"
             " their shoulder, I have decided to build an automated "
             "tool/platform to pre-process arabic records.")
+    st.markdown(prepro.download(
+                        prepro.read_file_return(prepro.dataset_try),
+                        "DOWNLOAD THE ARABIC HOTEL REVIEW DATASET FROM HERE FOR DEMO",
+                        "file/Text", prepro.dataset_try, "Text")
+                ,unsafe_allow_html=True)
     file = st.file_uploader("Upload your CSV/TXT file here:", type=["csv","txt"])
 if not file is None:
     with st.form(key="form1"):
@@ -28,7 +32,7 @@ if not file is None:
             st.subheader("Data Before Processing")
             prepro.read_file(file)
             prepro.ff = copy.deepcopy(prepro.df)
-            st.dataframe(data=prepro.ff)
+            st.dataframe(data=prepro.ff.head())
 
         with st.sidebar:
             # Select your column to apply the pre-processing on
@@ -45,7 +49,7 @@ if not file is None:
             emoji_count = st.checkbox("Emoji Count")
 
             # <--------------- fitlers ----------------->
-            st.header("filtering the arabic text column selected to pre-process: ")
+            st.header("Filtering the arabic text column selected to pre-process: ")
             remove_english = st.checkbox("Remove records with English")
             remove_url = st.checkbox("Remove URLs")
             remove_emoji = st.checkbox("Remove emoji")
@@ -56,7 +60,11 @@ if not file is None:
             remove_number = st.checkbox("Remove numbers")
             remove_tashkeel = st.checkbox("Remove arabic Tashkeel")
             stem = st.checkbox("Replace words with their stem")
+            file_type_save = st.selectbox("Export Format:", options=['Text', 'CSV'])
             btn = st.form_submit_button("Apply")
+
+            # btn_save = st.form_submit_button("Save")
+
 
         with content_title:
             if btn:
@@ -68,3 +76,5 @@ if not file is None:
                                                stem])
                 st.subheader("Data after adding the additional desired features")
                 st.dataframe(data=prepro.df)
+                st.markdown(prepro.download(prepro.df, "Download YOur new Data", file.type, "new_data."+file_type_save, file_type_save), unsafe_allow_html=True)
+                
