@@ -76,5 +76,5 @@ if not file is None:
                                                stem])
                 st.subheader("Data after adding the additional desired features")
                 st.dataframe(data=prepro.df)
-                st.markdown(prepro.download(prepro.df, "Download YOur new Data", file.type, "new_data."+file_type_save, file_type_save), unsafe_allow_html=True)
+                st.markdown(prepro.download(prepro.df, "Download Your New Data", file.type, "new_data."+file_type_save, file_type_save), unsafe_allow_html=True)
                 
