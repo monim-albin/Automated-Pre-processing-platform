@@ -10,8 +10,6 @@ import streamlit as st
 from io import StringIO
 
 
-server.maxUploadSize=10
-
 class Preprocessing:
     def __init__(self):
     # variables
