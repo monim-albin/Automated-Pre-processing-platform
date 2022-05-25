@@ -40,7 +40,7 @@ class Preprocessing:
         return href
 
     def read_file(self, file):
-        sep = "\t" if file.type == "text/plain" else ";"
+        sep = "\t" if file.type == "text/plain" else ","
         bytes_data = file.read()
         try:
             encoding = 'UTF-16'
