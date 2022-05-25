@@ -15,11 +15,13 @@ content_title = st.container()
 
 with header_title:
     st.title("Automated Arabic Pre-processing")
-    st.write("Arabic NLP projects suffer from the lack of "
-            "scientific research/scripting resources along with"
-            " linguistic complexity. To leverage the load carried on"
-            " their shoulder, I have decided to build an automated "
-            "tool/platform to pre-process arabic records.")
+    st.write("Arabic NPL developers/researchers suffer from the lack of"
+             "scientific and particular resources along with the linguistic (semantic "
+             "and syntactic) complexity the Arabic language holds. To alleviate the pain"
+             "on those who are working on tackling complex Arabic problems, This platform"
+             " is built to serve them on pre-processing Arabic records. It requires"
+             "to ONLY upload the file, select from the list what to process on the data, and"
+             "lastly click APPLY and download the new file..")
     st.markdown(prepro.download(
                         prepro.read_file_return(prepro.dataset_try),
                         "DOWNLOAD THE ARABIC HOTEL REVIEW DATASET FROM HERE FOR DEMO",
